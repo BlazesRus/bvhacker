@@ -216,6 +216,7 @@ BEGIN_MESSAGE_MAP(CbvhTweakDlg, CDialog)
 	ON_BN_CLICKED(IDC_ZERO_BTN, &CbvhTweakDlg::OnBnClickedZeroBtn)
 	ON_STN_CLICKED(IDC_CLAMP_LABEL, &CbvhTweakDlg::OnStnClickedClampLabel)
 	ON_COMMAND(ID_FILE_OPEN32777, &CbvhTweakDlg::OnFileOpen32777)
+	ON_COMMAND(ID_FILE_LOADADDITIVE, &CbvhTweakDlg::OnFileLoadAdditive)
 	ON_COMMAND(ID_FILE_SAVE32778, &CbvhTweakDlg::OnFileSave32778)
 	ON_BN_CLICKED(IDCANCEL, &CbvhTweakDlg::OnBnClickedCancel)
 	ON_COMMAND(ID_FILE_EXIT32784, &CbvhTweakDlg::OnFileExit32784)
@@ -2290,6 +2291,12 @@ void CbvhTweakDlg::OnFileOpen32777()
 {
 	OnBnClickedLoadBVH();
 }
+
+void CbvhTweakDlg::OnFileLoadAdditive()
+{
+	//OnFileLoadAdditive();
+}
+
 
 void CbvhTweakDlg::OnFileSave32778()
 {

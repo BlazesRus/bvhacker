@@ -249,6 +249,7 @@
 #define ID_ZEROOUTALLDECENDANTS         32865
 #define ID_ZEROOUT_JOINT                32866
 #define ID_MERGEWITHPARENT              32868
+#define ID_FILE_LOADADDITIVE			32870
 
 // Next default values for new objects
 // 

@@ -353,6 +353,7 @@ BEGIN
     POPUP "File"
     BEGIN
         MENUITEM "Open                    Ctrl+O", ID_FILE_OPEN32777
+		MENUITEM "Load Additive     Ctrl+L", ID_FILE_LOADADDITIVE
         MENUITEM "Save                     Ctrl+S", ID_FILE_SAVE32778
         MENUITEM SEPARATOR
         MENUITEM "Report",                      ID_FILE_REPORT

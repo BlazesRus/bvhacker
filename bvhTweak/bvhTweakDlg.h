@@ -262,6 +262,7 @@ public:
 	afx_msg void OnBnClickedScaleDown();
 	afx_msg void OnBnClickedAnimazooFix2();
 	afx_msg void OnFileOpen32777();
+	afx_msg void OnFileLoadAdditive();
 	afx_msg void OnFileSave32778();
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnFileExit32784();
