@@ -1,3 +1,4 @@
+#pragma region legacycredits
 /*
 	bvhacker - a program for animation previewing and editing
 
@@ -22,7 +23,8 @@
     along with bvhacker.  If not, see <http://www.gnu.org/licenses/>.
 
 */
- 
+#pragma endregion legacycredits
+
 #include "stdafx.h"
 #include "OpenGLControl.h"
 #include ".\openglcontrol.h"

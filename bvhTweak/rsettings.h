@@ -1,3 +1,4 @@
+#pragma region legacycredits
 /*
 	bvhacker - a program for animation previewing and editing
 
@@ -54,6 +55,8 @@
 
 
 ********************************************************************/
+#pragma endregion legacycredits
+
 #include <atlbase.h>
 #include <atlstr.h>
 
