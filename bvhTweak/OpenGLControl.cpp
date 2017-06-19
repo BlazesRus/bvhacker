@@ -151,7 +151,7 @@ void COpenGLControl::OnDraw(CDC *pDC)
 {
 }
 
-void COpenGLControl::OnTimer(UINT nIDEvent)
+void COpenGLControl::OnTimer(UINT_PTR nIDEvent)
 {
 	if(!theApp.m_IsLocked) {
 		switch (nIDEvent)

@@ -73,7 +73,7 @@ class COpenGLControl : public CWnd//,friend class CbvhTweakDlg
 		afx_msg void OnSize(UINT nType, int cx, int cy);
 		afx_msg	void OnDraw(CDC *pDC);
 		afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
-		afx_msg void OnTimer(UINT nIDEvent);
+		afx_msg void OnTimer(UINT_PTR nIDEvent);
 		afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 
 		DECLARE_MESSAGE_MAP()
