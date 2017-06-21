@@ -75,6 +75,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedLoadBVH();
 	afx_msg void OnBnClickedSaveBVH();
+	afx_msg void OnFileLoadAdditiveBVH();
 	afx_msg void OnOK();
 
 private:

@@ -869,6 +869,65 @@ void CbvhTweakDlg::OnBnClickedSaveBVH()
 	UnlockApp();	
 }
 
+void CbvhTweakDlg::OnFileLoadAdditiveBVH()
+{
+	// there is a bug where the tooltips for files on the desktop cause a crash. see:
+	// http://groups.google.co.uk/group/microsoft.public.vc.mfc/browse_thread/thread/d8702cd5caeef25e/870e838ca7733081?lnk=st&q=CFileDialog+disable+tooltips&rnum=2&hl=en#870e838ca7733081
+	if (!theApp.m_IsLocked) {
+
+		try {
+			// open file dialog
+			CString szFilter("BVH Files (*.bvh)|*.bvh||");
+			CBVHFileDialog* dlg = new CBVHFileDialog(true, NULL, NULL, (CBVHFileDialog::LISTVIEWCMD) m_pRegistrySettings->DefaultFileView, //
+				OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ENABLESIZING,
+				szFilter, NULL);
+
+			//CWnd* pshellwnd = dlg->GetDlgItem(lst2);
+			//pshellwnd->SendMessage(WM_COMMAND, ODM_VIEW_DETAIL); // 0x702c
+			//dlg.m_ofn.Flags |= OFN_ENABLESIZING;
+			if (dlg->DoModal() == IDCANCEL) {
+				delete dlg;
+				dlg = NULL;
+				UnlockApp();
+				return;
+			}
+			theApp.m_IsLocked = true;// can't call LockApp here, as it tries to save the state of the file before it's loaded;// can't set it above, as it forgets! seriously weird!
+
+									 // clean up in the right order
+			if (theApp.m_pBVHQuaterniser) delete theApp.m_pBVHQuaterniser;
+			theApp.m_pBVHQuaterniser = NULL;
+			if (theApp.m_pBVHFile) delete theApp.m_pBVHFile;
+			theApp.m_pBVHFile = NULL;
+			if (theApp.m_pBVHTweaker) delete theApp.m_pBVHTweaker;
+			theApp.m_pBVHTweaker = NULL;
+
+			// load the new file
+			bool bSuccess = true;
+			theApp.m_pBVHFile = new CBVHFile();
+			CString sPathName(dlg->GetPathName());
+			if (!(theApp.m_pBVHFile->LoadBVH(sPathName)))
+			{
+				AfxMessageBox(_T("Problem loading file"), MB_ICONSTOP);
+				UnlockApp();
+				return;
+			}
+			theApp.m_pBVHTweaker = new CBVHTweaker(theApp.m_pBVHFile);
+			theApp.m_pBVHQuaterniser = new CBVHQuaterniser(theApp.m_pBVHFile, theApp.m_pBVHTweaker);
+			delete dlg;
+			dlg = NULL;
+
+		}
+		catch (...) {
+
+			AfxMessageBox(_T("Problem with file"), MB_ICONSTOP);
+			UnlockApp();
+			return;
+		}
+		LoadBVH();
+		UnlockApp();
+	}
+}
+
 void CbvhTweakDlg::OnBnClickedPlayBtn()
 {
 	if(!theApp.m_IsLocked&&StatusIs(FILE_LOADED)) 
@@ -2294,7 +2353,7 @@ void CbvhTweakDlg::OnFileOpen32777()
 
 void CbvhTweakDlg::OnFileLoadAdditive()
 {
-	//OnFileLoadAdditive();
+	OnFileLoadAdditiveBVH();
 }
 
 
@@ -2658,6 +2717,7 @@ void CbvhTweakDlg::UnlockApp(void)
 {
 	//EnableControls();
 	theApp.m_IsLocked = false;
+	theApp.m_IsLocked = false;
 	UpdateInterface();
 	GetDlgItem(IDC_BVH_SKELETON)->SetFocus();
 }
@@ -2667,6 +2727,7 @@ void CbvhTweakDlg::LockApp(void)
 	// TODO: save model state here
 	//DisableControls();
 	theApp.m_pBVHFile->SaveState();
+	theApp.m_IsLocked = true;
 	theApp.m_IsLocked = true;
 }
 
