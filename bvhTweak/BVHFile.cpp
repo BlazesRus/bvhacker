@@ -736,11 +736,11 @@ bool CBVHFile::ReadLine(CStdioFile* pFile, CString* line)
 		if(!success) return false;
 		*line->TrimRight();
 		*line->TrimLeft();
-		if(line->GetLength()>2048)
+		/*if(line->GetLength()>2048)
 		{
 			AfxMessageBox(_T("Problem with file: was the file saved using Mac line endings?"),MB_ICONSTOP);
 			return false;
-		}
+		}*/
 	//}
 	return true;
 }
