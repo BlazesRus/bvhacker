@@ -27,7 +27,10 @@
 #include "BVHFile.h"
 //#include <math.h>
 #include "math.h"
-
+#include <iostream>
+#include <fstream>
+#include <string>
+//#include <boost/algorithm/string/predicate.hpp>
 
 CBVHFile::CBVHFile(void)
 : m_nFrames(0)
@@ -37,6 +40,7 @@ CBVHFile::CBVHFile(void)
 , m_fGroundHeight(0)
 , m_nJoints(0)
 , m_FileName(_T(""))
+, m_filePath(_T(""))
 , m_nParameters(0)
 , m_nFigureHeightMax(0)
 , m_nFigureHeightMin(0)
@@ -48,8 +52,98 @@ CBVHFile::~CBVHFile(void)
 {
 }
 
+
+bool CBVHFile::LoadBVHAdditive(CString FilePath, CString PreviousFilePath)
+{
+	m_filePath = FilePath;
+	//char szFilePath[MAX_PATH];
+	//strcpy(szFilePath, (LPCTSTR) FilePath );
+
+	std::ifstream fin(FilePath);
+	std::ifstream fin2(PreviousFilePath);
+
+	// store away the filename
+	TCHAR* dblSlashToken = _T("\\");
+	CString tcs;
+	m_FileName = _T("");
+	int rf = FilePath.ReverseFind(*dblSlashToken);
+	int len = FilePath.GetLength();
+	for (int i = rf + 1; i<len; i++) {
+		tcs = FilePath.GetAt(i);
+		m_FileName.Append(tcs);
+	}
+
+	CString newFileName = _T("");
+	rf = PreviousFilePath.ReverseFind(*dblSlashToken);
+	dblSlashToken = NULL;
+	len = PreviousFilePath.GetLength();
+	for (int i = rf + 1; i<len; i++) {
+		tcs = PreviousFilePath.GetAt(i);
+		newFileName.Append(tcs);
+	}
+
+	CString mergedFilePath = m_filePath.Replace('.', '_') + _T("plus") + newFileName;
+	std::ofstream fout(mergedFilePath);
+
+	// set the header
+    fout << "HIERARCHY\n";
+
+
+	string line1, line2;
+	std::getline(fin, line1);
+	std::getline(fin2, line2);
+
+
+	while (!fin.eof()) {
+		//read data from file
+		while (line1 != "MOTION") {
+			std::getline(fin, line1);
+			fout << line1 << '\n';
+		}
+
+		break;
+	}
+
+	while (!fin2.eof()) {
+		//read data from file
+
+		while (line2 != "MOTION") {
+			std::getline(fin2, line2);
+			fout << line2 << '\n';
+		}
+
+		break;
+	}
+
+
+	while (!fin.eof() && !fin2.eof()) {
+		
+			// read in the motion data header
+			if (line1 == "MOTION") {
+				//N FRAMES
+				std::getline(fin, line1); 
+				std::getline(fin2, line2);
+				fout << line1 << '\n';
+				//Frame Time
+				std::getline(fin, line1);
+				std::getline(fin2, line2);
+				fout << line1 << '\n';
+			}
+
+			// else it must be the actual motion data 
+			else {
+				std::getline(fin, line1);
+				std::getline(fin2, line2);
+				fout << line1 << line2 << '\n';
+			}
+	}
+
+	return true;
+}
+
 bool CBVHFile::LoadBVH(CString FilePath)
 {
+	m_filePath = FilePath;
 	//char szFilePath[MAX_PATH];
 	//strcpy(szFilePath, (LPCTSTR) FilePath );
 	CStdioFile* pFile = new CStdioFile((LPCTSTR)FilePath, CFile::modeRead | CFile::typeText);
@@ -745,6 +839,14 @@ bool CBVHFile::ReadLine(CStdioFile* pFile, CString* line)
 	return true;
 }
 
+bool CBVHFile::Write(CStdioFile* pFile, CString* line)
+{
+	pFile->WriteString(*line);
+	line->Empty();
+	return true;
+}
+
+
 bool CBVHFile::WriteLine(CStdioFile* pFile, CString* line)
 {
 	line->Append(_T("\n"));
@@ -885,6 +987,11 @@ void CBVHFile::SetFrameTime(float NewFrameTime)
 CString CBVHFile::GetFileName()
 {
 	return m_FileName;
+}
+
+CString CBVHFile::GetFilePath()
+{
+	return m_filePath;
 }
 
 int CBVHFile::GetNJoints()

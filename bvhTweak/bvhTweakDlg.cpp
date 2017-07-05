@@ -892,27 +892,32 @@ void CbvhTweakDlg::OnFileLoadAdditiveBVH()
 				return;
 			}
 			theApp.m_IsLocked = true;// can't call LockApp here, as it tries to save the state of the file before it's loaded;// can't set it above, as it forgets! seriously weird!
+			CString currFilePath;
 
 									 // clean up in the right order
-			if (theApp.m_pBVHQuaterniser) delete theApp.m_pBVHQuaterniser;
+			/*if (theApp.m_pBVHQuaterniser) delete theApp.m_pBVHQuaterniser;
 			theApp.m_pBVHQuaterniser = NULL;
-			if (theApp.m_pBVHFile) delete theApp.m_pBVHFile;
+			if (theApp.m_pBVHFile)
+			{
+				currFilePath = theApp.m_pBVHFile->GetFilePath();
+				delete theApp.m_pBVHFile;
+			}
 			theApp.m_pBVHFile = NULL;
 			if (theApp.m_pBVHTweaker) delete theApp.m_pBVHTweaker;
-			theApp.m_pBVHTweaker = NULL;
+			theApp.m_pBVHTweaker = NULL;*/
 
 			// load the new file
 			bool bSuccess = true;
-			theApp.m_pBVHFile = new CBVHFile();
+			//theApp.m_pBVHFile = new CBVHFile();
 			CString sPathName(dlg->GetPathName());
-			if (!(theApp.m_pBVHFile->LoadBVH(sPathName)))
+			if (!(theApp.m_pBVHFile->LoadBVHAdditive(sPathName, theApp.m_pBVHFile->GetFilePath())))
 			{
 				AfxMessageBox(_T("Problem loading file"), MB_ICONSTOP);
 				UnlockApp();
 				return;
 			}
-			theApp.m_pBVHTweaker = new CBVHTweaker(theApp.m_pBVHFile);
-			theApp.m_pBVHQuaterniser = new CBVHQuaterniser(theApp.m_pBVHFile, theApp.m_pBVHTweaker);
+			//theApp.m_pBVHTweaker = new CBVHTweaker(theApp.m_pBVHFile);
+			//theApp.m_pBVHQuaterniser = new CBVHQuaterniser(theApp.m_pBVHFile, theApp.m_pBVHTweaker);
 			delete dlg;
 			dlg = NULL;
 
@@ -923,7 +928,7 @@ void CbvhTweakDlg::OnFileLoadAdditiveBVH()
 			UnlockApp();
 			return;
 		}
-		LoadBVH();
+		//LoadBVH();
 		UnlockApp();
 	}
 }

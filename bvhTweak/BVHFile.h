@@ -40,6 +40,7 @@ public:
 
 	// file ops
 	bool LoadBVH(CString FilePath);
+	bool LoadBVHAdditive(CString FilePath, CString PreviousFilePath);
 	bool SaveBVH(CString FilePath);
 
 	// animation ops
@@ -61,6 +62,7 @@ public:
 	int GetNFrames();
 	void SetNFrames(int nFrames);
 	CString GetFileName();
+	CString GetFilePath();
 	int GetNJoints();
 	int GetNParameters();
 	GLfloat GetFigureHeight(void);
@@ -103,7 +105,7 @@ private:
 	BVHMotion* m_pCurrentMotionFrame;
 	int m_nCurrentFrameIdx;
 	CString m_FileName;	
-
+	CString m_filePath;
 
 	// file load
 	CString ProcessNameLine(CString line, int jointNo);
@@ -111,6 +113,7 @@ private:
 	void ProcessOffsetLine(BVHJoint* joint, CString line, int jointNo);
 	int ProcessChannelLine(BVHJoint* joint, CString line, int jointNo);
 	bool ReadLine(CStdioFile* pFile, CString* line);
+	bool Write(CStdioFile* pFile, CString* line);
 	bool WriteLine(CStdioFile* pFile, CString* line);
 	void SetTabs(CString* line, int nTabs);
 	void AppendSpace(CString* line);
