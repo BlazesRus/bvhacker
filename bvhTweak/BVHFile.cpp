@@ -82,7 +82,7 @@ bool CBVHFile::LoadBVHAdditive(CString FilePath, CString PreviousFilePath)
 		newFileName.Append(tcs);
 	}
 
-	CString mergedFilePath = m_filePath.Replace('.', '_') + _T("plus") + newFileName;
+	CString mergedFilePath = m_filePath + _T("plus") + newFileName;
 	std::ofstream fout(mergedFilePath);
 
 	// set the header
