@@ -293,6 +293,8 @@ void COpenGLControl::oglInitialize(void)
 
 void COpenGLControl::oglDrawScene(void)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// set colours
 	GLfloat m_ColourWhite[] =  {1.f,1.f,1.f};
 	GLfloat m_ColourBlack[] =  {0.f, 0.f, 0.f};
@@ -1110,16 +1112,15 @@ void COpenGLControl::DrawGround(GLfloat fGroundHeight)
 	
 
 	if(m_bShowColouring) {
-
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glEnable(GL_BLEND);
 
 		if(!m_bGroundView) 
 		{
 			float fBrightener = 1.65f;
-			if(m_bLighting) glColor3f(0.561f*fBrightener, 
-				                      0.682f*fBrightener, 
-									  0.459f*fBrightener);	// green
-			else glColor3f(0.561f, 0.682f, 0.459f);	// green
+			if(m_bLighting) glColor4f(0.561f*fBrightener, 
+				                      4.682f*fBrightener, 
+									  0.459f*fBrightener, 0.03f);	// green
+			else glColor4f(0.561f, 4.682f, 0.459f, 0.03f);	// green
 		}
 		else 
 		{
