@@ -1252,9 +1252,11 @@ void CbvhTweakDlg::OnTimer(UINT_PTR nIDEvent)
 	// Sigh. The view gets changed on load because the ogl window captures 
 	// the mouse click from the file dialog over it and applies it as a 
 	// view change. This little hack restores the default view on file load
-	if(StatusIs(FILE_JUST_LOADED)) {
+	if (StatusIs(FILE_JUST_LOADED)) {
 		m_oglWindow.ResetView();
-		m_status-=FILE_JUST_LOADED;
+		m_status -= FILE_JUST_LOADED;
+		CbvhTweakDlg::OnEditScaleup();
+		m_SkeletonTree.SetCurrentSelection("End Site");
 	}
 
 	bool bFileLoaded = StatusIs(FILE_LOADED);
