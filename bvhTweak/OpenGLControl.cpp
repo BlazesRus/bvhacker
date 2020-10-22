@@ -2,7 +2,7 @@
 /*
 	bvhacker - a program for animation previewing and editing
 
-	bvhacker Copyright © 2006 to 2014 David Wooldridge  
+	bvhacker Copyright © 2006 to 2020 David Wooldridge  
 
 		dave@davedub.co.uk
 		http://davedub.co.uk/

@@ -835,7 +835,7 @@ bool CBVHFile::ReadLine(CStdioFile* pFile, CString* line)
 		{
 			AfxMessageBox(_T("Problem with file: was the file saved using Mac line endings?"),MB_ICONSTOP);
 			return false;
-		}*/
+		}
 	//}
 	return true;
 }
