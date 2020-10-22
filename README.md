@@ -8,3 +8,9 @@ Project homepage: http://www.bvhacker.com
 Project discussion group: http://groups.google.com/group/bvhacker
 
 Project donations: http://www.bvhacker.com/donate.html
+
+Project homepage: http://www.bvhacker.com
+
+Project discussion group: http://groups.google.com/group/bvhacker
+
+Project donations: http://www.bvhacker.com/donate.html
