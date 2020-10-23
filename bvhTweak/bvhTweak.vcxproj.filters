@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="GlobalCode">
+      <UniqueIdentifier>{312cafd5-a15e-46a2-be5d-e8175721260e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BVHAboutBox.cpp">
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="BVHOptions.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GlobalCode\DLLAPI.h">
+      <Filter>GlobalCode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GlobalCode\AltNum\MediumDec.hpp">
+      <Filter>GlobalCode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
