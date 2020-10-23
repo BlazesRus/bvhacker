@@ -276,8 +276,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\GlobalCode\DLLAPI.h" />
-    <ClInclude Include="..\GlobalCode\AltNum\MediumDec.hpp" />
+    <ClInclude Include="$(GlobalCode)\DLLAPI.h" />
+    <ClInclude Include="$(GlobalCode)\AltNum\MediumDec.hpp" />
+	<ClInclude Include="$(GlobalCode)\tsl\ordered_map.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BVHAboutBox.cpp" />
